@@ -1,0 +1,5 @@
+S Tc
+S b
+T aS
+T aC
+C bS

@@ -1,0 +1,8 @@
+S TX
+S b
+T YS
+T YC
+C ZS
+X c
+Y a
+Z b
