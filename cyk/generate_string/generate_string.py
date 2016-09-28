@@ -1,6 +1,4 @@
-import sys
-import random
-from cnf import read_grammar
+from random import Random
 from util import print_arr
 
 def rand_string(t_count, l=10):

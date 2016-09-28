@@ -1,0 +1,10 @@
+# S -> SS | aSb | bSa | ab | ba
+S SS
+S AT
+S BU
+S AB
+S BA
+T SB
+U SA
+A a
+B b
