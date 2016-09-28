@@ -1,6 +1,3 @@
-import sys
-from time import time
-from cnf import read_linear_grammar
 from util import print_arr
 
 UNDEF = 0
