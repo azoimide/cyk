@@ -38,7 +38,6 @@ def linear_to_cnf(lnups, rnups, ups, nt_tab, t_tab):
 
             nups[lhs].append((n1, n2))
 
-    print new_rev_ups
     for i in range(len(new_rev_ups)):
         ups[new_rev_ups[i]].append(i)
 
