@@ -1,8 +1,8 @@
-from random import Random
+import random
 from util import print_arr
 
 def rand_string(t_count, l=10):
-    r = Random()
+    r = random.Random()
     return [ r.randint(0, t_count - 1) for i in range(l) ]
 
 def generate_table(nups, ups, start, length, debug=False):
