@@ -1,0 +1,15 @@
+S AX
+A AX
+A BY
+B CZ
+C CX
+C DW
+D DX
+D +
+D -
+X 0
+X 1
+Y +
+Y -
+Z e
+W .
