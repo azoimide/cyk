@@ -4,13 +4,24 @@ from util import map_string
 
 def main():
     with open("grammar.txt", "r") as f:
-        nups, _, rev_ups, nt_tab, t_tab, start = read_grammar(f)
+        nups, ups, rev_ups, nt_tab, t_tab, start = read_grammar(f)
 
-    s1 = "bbcb"
-    assert 0 == self_correcting_cyk(nups, rev_ups, map_string(s1, t_tab), debug=True)[0]
+    # print sorted(nt_tab, key=lambda k: nt_tab[k])
 
-    s1 = "bbab"
-    assert 1 == self_correcting_cyk(nups, rev_ups, map_string(s1, t_tab))[0]
+    s = "aabb"
+    assert 0 == self_correcting_cyk(nups, ups, map_string(s, t_tab), debug=False)[0]
+
+    s = "bbaa"
+    assert 4 == self_correcting_cyk(nups, ups, map_string(s, t_tab), debug=False)[0]
+
+    s = "abbb"
+    assert 1 == self_correcting_cyk(nups, ups, map_string(s, t_tab), debug=False)[0]
+
+    s = "abbbb"
+    assert len(s) < self_correcting_cyk(nups, ups, map_string(s, t_tab), debug=False)[0]
+
+    s = "bbab"
+    assert 3 == self_correcting_cyk(nups, ups, map_string(s, t_tab), debug=False)[0]
 
 if __name__ == "__main__":
     main()

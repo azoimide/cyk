@@ -1,6 +1,5 @@
-A BC
+S AU
+S AB
+U SB
 A a
-B CA
 B b
-C AB
-C c
