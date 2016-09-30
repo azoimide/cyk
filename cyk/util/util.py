@@ -13,3 +13,24 @@ def map_to_string(ns, t_tab):
                 s += c
                 break
     return s
+
+def levenshtein(s1, s2, i1=None, i2=None):
+    if i1 == None:
+        i1 = len(s1)
+    if i2 == None:
+        i2 = len(s2)
+
+
+    if i1 == 0:
+        return i2
+    if i2 == 0:
+        return i1
+
+    if s1[i1 - 1] == s2[i2 - 1]:
+        cost = 0
+    else:
+        cost = 1
+
+    return min(levenshtein(s1, s2, i1 - 1, i2) + 1,
+               levenshtein(s1, s2, i1, i2 - 1) + 1,
+               levenshtein(s1, s2, i1 - 1, i2 - 1) + cost)
