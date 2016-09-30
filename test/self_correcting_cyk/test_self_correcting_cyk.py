@@ -1,12 +1,12 @@
 from cnf import read_grammar
-from self_correcting_cyk import self_correcting_cyk, self_correcting_cyk2, self_correcting_cyk3
+from self_correcting_cyk import self_correcting_cyk, self_correcting_cyk2, self_correcting_cyk3, self_correcting_cyk4
 from util import map_string
 
 def main():
     with open("grammar.txt", "r") as f:
         nups, ups, rev_ups, nt_tab, t_tab, start = read_grammar(f)
 
-    # print sorted(nt_tab, key=lambda k: nt_tab[k])
+    print sorted(nt_tab, key=lambda k: nt_tab[k])
 
     # Only changes
     s = "aabb"
@@ -52,6 +52,13 @@ def main():
 
     s = "abaab"
     assert 2 == self_correcting_cyk3(nups, ups, map_string(s, t_tab), debug=False)[0]
+
+    # Find closest string
+    s = "abbbb"
+    assert 2 == self_correcting_cyk4(nups, ups, map_string(s, t_tab), debug=True)[0]
+    
+    s = "bbaab"
+    assert 3 == self_correcting_cyk4(nups, ups, map_string(s, t_tab), debug=True)[0]
 
 if __name__ == "__main__":
     main()
