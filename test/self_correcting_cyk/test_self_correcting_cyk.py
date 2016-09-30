@@ -1,5 +1,5 @@
 from cnf import read_grammar
-from self_correcting_cyk import self_correcting_cyk, self_correcting_cyk2
+from self_correcting_cyk import self_correcting_cyk, self_correcting_cyk2, self_correcting_cyk3
 from util import map_string
 
 def main():
@@ -8,6 +8,7 @@ def main():
 
     # print sorted(nt_tab, key=lambda k: nt_tab[k])
 
+    # Only changes
     s = "aabb"
     assert 0 == self_correcting_cyk(nups, ups, map_string(s, t_tab), debug=False)[0]
 
@@ -23,6 +24,7 @@ def main():
     s = "bbab"
     assert 3 == self_correcting_cyk(nups, ups, map_string(s, t_tab), debug=False)[0]
 
+    # Only deletions
     s = "abb"
     assert 1 == self_correcting_cyk2(nups, ups, map_string(s, t_tab), debug=False)[0]
 
@@ -37,6 +39,19 @@ def main():
 
     s = "abaab"
     assert 3 == self_correcting_cyk2(nups, ups, map_string(s, t_tab), debug=False)[0]
+
+    # Deletions and changes
+    s = "abbbb"
+    assert 2 == self_correcting_cyk3(nups, ups, map_string(s, t_tab), debug=False)[0]
+
+    s = "aabbb"
+    assert 1 == self_correcting_cyk3(nups, ups, map_string(s, t_tab), debug=False)[0]
+
+    s = "bbb"
+    assert 2 == self_correcting_cyk3(nups, ups, map_string(s, t_tab), debug=False)[0]
+
+    s = "abaab"
+    assert 2 == self_correcting_cyk3(nups, ups, map_string(s, t_tab), debug=False)[0]
 
 if __name__ == "__main__":
     main()
