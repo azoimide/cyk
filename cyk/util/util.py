@@ -1,3 +1,5 @@
+import random
+
 def print_arr(a):
     print "\n".join(map(str, a))
     print ""
@@ -34,3 +36,7 @@ def levenshtein(s1, s2, i1=None, i2=None):
     return min(levenshtein(s1, s2, i1 - 1, i2) + 1,
                levenshtein(s1, s2, i1, i2 - 1) + 1,
                levenshtein(s1, s2, i1 - 1, i2 - 1) + cost)
+
+def rand_string(t_count, l=10):
+    r = random.Random()
+    return [ r.randint(0, t_count - 1) for i in range(l) ]

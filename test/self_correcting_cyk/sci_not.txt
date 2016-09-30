@@ -1,0 +1,22 @@
+# +_b1..ble+_bl+1..bn
+#
+# R -> +P | -P
+# P -> 0P | 1P | .N
+# N -> 0N | 1N | eX
+# X -> +Y | -Y
+# Y -> 0Y | 1Y | 0 | 1
+R SP
+P BP
+P DN
+N BN
+N EX
+X SY
+Y BY
+Y 0
+Y 1
+S +
+S -
+B 0
+B 1
+D .
+E e

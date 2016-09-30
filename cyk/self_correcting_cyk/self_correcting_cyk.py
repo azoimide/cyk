@@ -124,18 +124,20 @@ def self_correcting_cyk3(nups, ups, s, start=0, debug=False):
 
     return (tab[-1][-1][start], [])
 
-def build_string(tab2, i=None, j=None, N=0):
+def build_string(tab2, i=None, j=None, N=0, debug=False):
     if i == None:
         i = len(tab2) - 1
     if j == None:
         j = len(tab2) - 1
     children = tab2[i][j][N]
-    print "i:", i, "j:", j, children
+    if debug:
+        print "i:", i, "j:", j, children
     if i == 0:
         return [children[0][2]]
 
     result = sum([ build_string(tab2, i - c[0], j - c[1], c[2]) for c in children ], [])
-    print "result:", result
+    if debug:
+        print "result:", result
     return result
 
 def self_correcting_cyk4(nups, ups, s, start=0, debug=False):
@@ -159,8 +161,8 @@ def self_correcting_cyk4(nups, ups, s, start=0, debug=False):
 
     # For each non-terminal and substring, find the cheapest split
     for r in range(1, l):
-        # if debug:
-        #     print_arr(tab)
+        if debug:
+            print_arr(tab)
         for c in range(r, l):
             for n in range(len(nups)):
                 minn = inf
@@ -180,13 +182,13 @@ def self_correcting_cyk4(nups, ups, s, start=0, debug=False):
 
     if debug:
         print_arr(tab)
-        # print_arr(tab2)
 
     s_fixed = build_string(tab2)
-    print s_fixed
-    print ""
 
-    return (tab[-1][-1][start], s_fixed)
+    if tab[-1][-1][start] == 0:
+        return (0, s)
+    else:
+        return (tab[-1][-1][start], s_fixed)
 
 
 
