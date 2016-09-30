@@ -1,5 +1,5 @@
 from cnf import read_grammar
-from self_correcting_cyk import self_correcting_cyk
+from self_correcting_cyk import self_correcting_cyk, self_correcting_cyk2
 from util import map_string
 
 def main():
@@ -22,6 +22,21 @@ def main():
 
     s = "bbab"
     assert 3 == self_correcting_cyk(nups, ups, map_string(s, t_tab), debug=False)[0]
+
+    s = "abb"
+    assert 1 == self_correcting_cyk2(nups, ups, map_string(s, t_tab), debug=False)[0]
+
+    s = "aab"
+    assert 1 == self_correcting_cyk2(nups, ups, map_string(s, t_tab), debug=False)[0]
+
+    s = "abbbb"
+    assert 3 == self_correcting_cyk2(nups, ups, map_string(s, t_tab), debug=False)[0]
+
+    s = "aabbb"
+    assert 1 == self_correcting_cyk2(nups, ups, map_string(s, t_tab), debug=False)[0]
+
+    s = "abaab"
+    assert 3 == self_correcting_cyk2(nups, ups, map_string(s, t_tab), debug=False)[0]
 
 if __name__ == "__main__":
     main()

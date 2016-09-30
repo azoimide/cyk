@@ -1,1 +1,1 @@
-from self_correcting_cyk import self_correcting_cyk
+from self_correcting_cyk import self_correcting_cyk, self_correcting_cyk2
