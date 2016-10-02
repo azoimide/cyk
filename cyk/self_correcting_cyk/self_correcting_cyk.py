@@ -48,9 +48,14 @@ def self_correcting_cyk(nups, ups, s, start=0, debug=False, change=False, delete
                         str_tab[r][c][n] = [(1,1,n)]
                 cost_tab[r][c][n] = minn
 
-    s_fixed = build_string(str_tab)
+    if (not change and not delete) or cost_tab[-1][-1][start] > len(s):
+        s_fixed = []
+    else:
+        s_fixed = build_string(str_tab)
     if debug:
         print_arr(cost_tab)
+        print_arr(str_tab)
+        print "result:", (cost_tab[-1][-1][start], s_fixed)
 
     return (cost_tab[-1][-1][start], s_fixed)
 
