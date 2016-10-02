@@ -25,10 +25,13 @@ def sci_not():
     with open("sci_not.txt", "r") as f:
         nups, ups, rev_ups, nt_tab, t_tab, start = read_grammar(f)
 
+    print t_tab
+    print sorted(nt_tab)
+
     s = "+.e-0"
-    print s
+    print "s:", s
     s_new = map_to_string(self_correcting_cyk(nups, ups, map_string(s, t_tab), debug=True, change=True)[1], t_tab)
-    print s_new
+    print "n:", s_new
     assert s == s_new
 
     s = "++e-0"
