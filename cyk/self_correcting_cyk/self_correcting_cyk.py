@@ -202,7 +202,8 @@ def self_correcting_cyk_all(nups, ups, s, start=0, debug=False, change=False, de
     for c in range(l):
         for n in range(len(ups)):
             if len(ups[n]) > 0:
-                cost_tab[0][c][n] = 1
+                if change:
+                    cost_tab[0][c][n] = 1
                 str_tab[0][c][n] = [(1,0,ups[n][0])]
                 for up in ups[n]:
                     if up == s[c]:
