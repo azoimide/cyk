@@ -4,8 +4,6 @@ from util import map_string, map_to_string, levenshtein
 from generate_string import generate_table, generate_string, rand_string
 
 def main():
-    with open("a_n_b_n.txt", "r") as f:
-        nups, ups, rev_ups, nt_tab, t_tab, start = read_grammar(f)
 
     for g in ["a_n_b_n.txt", "sci_not.txt", "brackets.txt"]:
         with open(g, "r") as f:
@@ -18,7 +16,7 @@ def main():
             d, s2 = self_correcting_cyk(nups, ups, s, change=True, delete=True)
             print s2
             print map_to_string(s2, t_tab)
-            l = levenshtein(s, s2)
+            l = levenshtein(s, s2, sym=False)
             print "d:", d, "l:", l
             assert d == l
             print ""

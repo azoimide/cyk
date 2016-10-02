@@ -16,12 +16,11 @@ def map_to_string(ns, t_tab):
                 break
     return s
 
-def levenshtein(s1, s2, i1=None, i2=None):
+def levenshtein(s1, s2, i1=None, i2=None, sym=True):
     if i1 == None:
         i1 = len(s1)
     if i2 == None:
         i2 = len(s2)
-
 
     if i1 == 0:
         return i2
@@ -29,13 +28,17 @@ def levenshtein(s1, s2, i1=None, i2=None):
         return i1
 
     if s1[i1 - 1] == s2[i2 - 1]:
-        cost = 0
+        return levenshtein(s1, s2, i1 - 1, i2 - 1, sym=sym)
     else:
-        cost = 1
-
-    return min(levenshtein(s1, s2, i1 - 1, i2) + 1,
-               levenshtein(s1, s2, i1, i2 - 1) + 1,
-               levenshtein(s1, s2, i1 - 1, i2 - 1) + cost)
+        if sym:
+            return 1 + min(levenshtein(s1, s2, i1 - 1, i2, sym=sym),
+                       levenshtein(s1, s2, i1, i2 - 1, sym=sym),
+                       levenshtein(s1, s2, i1 - 1, i2 - 1, sym=sym))
+        else:
+            return 1 + min(levenshtein(s1, s2, i1 - 1, i2, sym=sym),
+                       levenshtein(s1, s2, i1 - 1, i2 - 1, sym=sym))
+            # return 1 + min(levenshtein(s1, s2, i1, i2 - 1, sym=sym),
+            #            levenshtein(s1, s2, i1 - 1, i2 - 1, sym=sym))
 
 def rand_string(t_count, l=10):
     r = random.Random()
