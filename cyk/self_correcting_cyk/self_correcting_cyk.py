@@ -20,22 +20,14 @@ def self_correcting_cyk(nups, ups, s, start=0, debug=False, change=False, delete
                 if change:
                     cost_tab[0][c][n] = 1
                 str_tab[0][c][n] = [ups[n][0]]
-                # str_tab[0][c][n] = [(1,0,ups[n][0])]
                 for up in ups[n]:
                     if up == s[c]:
-                        # print "({}, {}): {}".format(c, n, up)
                         cost_tab[0][c][n] = 0
                         str_tab[0][c][n] = [s[c]]
-                        # str_tab[0][c][n] = [(1,0,s[c])]
-                        # str_tab[0][c][n] = [(1,0,0)]
                         break
-
-    # print str_tab[0]
 
     # For each non-terminal and substring, find the cheapest split
     for r in range(1, l):
-        # if debug:
-        #     print_arr(cost_tab)
         for c in range(r, l):
             for n in range(len(nups)):
                 minn = inf
@@ -54,13 +46,11 @@ def self_correcting_cyk(nups, ups, s, start=0, debug=False, change=False, delete
                         str_tab[r][c][n] = [(1,1,n)]
                 cost_tab[r][c][n] = minn
 
-    # if debug:
-    #     print_arr(cost_tab)
+    if debug:
+        print_arr(cost_tab)
     if (not change and not delete) or cost_tab[-1][-1][start] > len(s):
         s_fixed = []
     else:
-        # if debug:
-        #     print_arr(str_tab)
         s_fixed = build_string(str_tab, debug=debug)
     
     if debug:
@@ -74,13 +64,10 @@ def build_string(tab2, r=None, c=None, N=0, debug=False):
     if c == None:
         c = len(tab2) - 1
     children = tab2[r][c][N]
-    # if debug:
     if r == 0:
         result = children
-        # return [children[0][2]]
     else:
         result = sum([ build_string(tab2, r - child[0], c - child[1], child[2], debug=debug) for child in children ], [])
-        # result = sum([ build_string(tab2, r - child[0], c - child[1], child[2], debug=debug) for child in children ], [])
 
     if debug:
         print "r:", r, "c:", c, "N:", N, children

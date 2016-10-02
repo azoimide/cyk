@@ -25,23 +25,17 @@ def sci_not():
     with open("sci_not.txt", "r") as f:
         nups, ups, rev_ups, nt_tab, t_tab, start = read_grammar(f)
 
-    # print t_tab
-    # print sorted(nt_tab)
-
     s = "+.e-0"
-    # print "s:", s
-    s_new = map_to_string(self_correcting_cyk(nups, ups, map_string(s, t_tab), debug=False, change=True)[1], t_tab)
-    # print "n:", s_new
-    assert s == s_new
+    assert s == map_to_string(self_correcting_cyk(nups, ups, map_string(s, t_tab), debug=False, change=True)[1], t_tab)
 
     s = "++e-0"
     assert "+.e-0" == map_to_string(self_correcting_cyk(nups, ups, map_string(s, t_tab), debug=False, change=True)[1], t_tab)
 
     s = "1+e-0"
-    assert [] == map_to_string(self_correcting_cyk(nups, ups, map_string(s, t_tab), debug=False, change=True)[1], t_tab)
+    assert "+.e-0" == map_to_string(self_correcting_cyk(nups, ups, map_string(s, t_tab), debug=False, change=True)[1], t_tab)
 
     s = "1+e-"
-    assert [] == map_to_string(self_correcting_cyk(nups, ups, map_string(s, t_tab), debug=False, change=True)[1], t_tab)
+    assert "" == map_to_string(self_correcting_cyk(nups, ups, map_string(s, t_tab), debug=False, change=True)[1], t_tab)
 
 def brackets():
     with open("brackets.txt", "r") as f:
@@ -69,8 +63,7 @@ def brackets():
     assert "" == map_to_string(self_correcting_cyk(nups, ups, map_string(s, t_tab), debug=False, change=True)[1], t_tab)
 
 def main():
-    # a_n_b_n()
-    # print "WARNING: deactivated test!"
+    a_n_b_n()
     sci_not()
     brackets()
 
