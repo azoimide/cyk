@@ -19,17 +19,23 @@ def self_correcting_cyk(nups, ups, s, start=0, debug=False, change=False, delete
             if len(ups[n]) > 0:
                 if change:
                     cost_tab[0][c][n] = 1
-                str_tab[0][c][n] = [(1,0,ups[n][0])]
+                str_tab[0][c][n] = [ups[n][0]]
+                # str_tab[0][c][n] = [(1,0,ups[n][0])]
                 for up in ups[n]:
                     if up == s[c]:
+                        # print "({}, {}): {}".format(c, n, up)
                         cost_tab[0][c][n] = 0
-                        str_tab[0][c][n] = [(1,0,s[c])]
+                        str_tab[0][c][n] = [s[c]]
+                        # str_tab[0][c][n] = [(1,0,s[c])]
+                        # str_tab[0][c][n] = [(1,0,0)]
                         break
+
+    # print str_tab[0]
 
     # For each non-terminal and substring, find the cheapest split
     for r in range(1, l):
-        if debug:
-            print_arr(cost_tab)
+        # if debug:
+        #     print_arr(cost_tab)
         for c in range(r, l):
             for n in range(len(nups)):
                 minn = inf
@@ -38,7 +44,7 @@ def self_correcting_cyk(nups, ups, s, start=0, debug=False, change=False, delete
                         cost = cost_tab[r - k][c - k][nup[0]] + cost_tab[k - 1][c][nup[1]]
                         if cost < minn:
                             minn = cost
-                            str_tab[r][c][n] = [(k,0,nup[0]),(r - k + 1, r - k + 1,nup[1])]
+                            str_tab[r][c][n] = [(k,k,nup[0]),(r - k + 1, 0,nup[1])]
                 if delete:
                     if cost_tab[r - 1][c][n] + 1 < minn:
                         minn = cost_tab[r - 1][c][n] + 1
@@ -48,30 +54,36 @@ def self_correcting_cyk(nups, ups, s, start=0, debug=False, change=False, delete
                         str_tab[r][c][n] = [(1,1,n)]
                 cost_tab[r][c][n] = minn
 
+    # if debug:
+    #     print_arr(cost_tab)
     if (not change and not delete) or cost_tab[-1][-1][start] > len(s):
         s_fixed = []
     else:
-        s_fixed = build_string(str_tab)
+        # if debug:
+        #     print_arr(str_tab)
+        s_fixed = build_string(str_tab, debug=debug)
+    
     if debug:
-        print_arr(cost_tab)
-        print_arr(str_tab)
         print "result:", (cost_tab[-1][-1][start], s_fixed)
 
     return (cost_tab[-1][-1][start], s_fixed)
 
-def build_string(tab2, i=None, j=None, N=0, debug=False):
-    if i == None:
-        i = len(tab2) - 1
-    if j == None:
-        j = len(tab2) - 1
-    children = tab2[i][j][N]
-    if debug:
-        print "i:", i, "j:", j, children
-    if i == 0:
-        return [children[0][2]]
+def build_string(tab2, r=None, c=None, N=0, debug=False):
+    if r == None:
+        r = len(tab2) - 1
+    if c == None:
+        c = len(tab2) - 1
+    children = tab2[r][c][N]
+    # if debug:
+    if r == 0:
+        result = children
+        # return [children[0][2]]
+    else:
+        result = sum([ build_string(tab2, r - child[0], c - child[1], child[2], debug=debug) for child in children ], [])
+        # result = sum([ build_string(tab2, r - child[0], c - child[1], child[2], debug=debug) for child in children ], [])
 
-    result = sum([ build_string(tab2, i - c[0], j - c[1], c[2]) for c in children ], [])
     if debug:
+        print "r:", r, "c:", c, "N:", N, children
         print "result:", result
     return result
 

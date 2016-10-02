@@ -25,13 +25,13 @@ def sci_not():
     with open("sci_not.txt", "r") as f:
         nups, ups, rev_ups, nt_tab, t_tab, start = read_grammar(f)
 
-    print t_tab
-    print sorted(nt_tab)
+    # print t_tab
+    # print sorted(nt_tab)
 
     s = "+.e-0"
-    print "s:", s
-    s_new = map_to_string(self_correcting_cyk(nups, ups, map_string(s, t_tab), debug=True, change=True)[1], t_tab)
-    print "n:", s_new
+    # print "s:", s
+    s_new = map_to_string(self_correcting_cyk(nups, ups, map_string(s, t_tab), debug=False, change=True)[1], t_tab)
+    # print "n:", s_new
     assert s == s_new
 
     s = "++e-0"
@@ -69,9 +69,9 @@ def brackets():
     assert "" == map_to_string(self_correcting_cyk(nups, ups, map_string(s, t_tab), debug=False, change=True)[1], t_tab)
 
 def main():
-    a_n_b_n()
-    print "WARNING: deactivated test!"
-    # sci_not()
+    # a_n_b_n()
+    # print "WARNING: deactivated test!"
+    sci_not()
     brackets()
 
 if __name__ == "__main__":
